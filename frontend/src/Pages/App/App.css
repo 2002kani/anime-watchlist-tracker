@@ -78,10 +78,48 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
+.card-banner {
+  position: relative; 
+  width: 100%;
+  height: 150px; 
+  overflow: hidden;
+}
+
 .card-banner img {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
+}
+
+.card-options {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.card-options button {
+  background-color: #1e1e1ede;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-options button:hover {
+  background-color: #6aa8e5de;
+  transform: scale(1.1);
+}
+
+.card-options button i {
+  font-size: 16px;
+  color: #e0e0e0;
 }
 
 .card-info {
