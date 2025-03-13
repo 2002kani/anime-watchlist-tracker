@@ -1,7 +1,7 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import cors from "cors";
 
 // App und Middleware einrichten
 const app = express();
@@ -17,7 +17,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 // Schema und Modell erstellen
 const cardSchema = new mongoose.Schema({
     titel: { type: String, required: true },
-    img_url: { type: string, required: true },
+    img_url: { type: String, required: true },
     synopsis: { type: String, required: true },
     rank: { type: Number, required: true },
     score: { type: Number, required: true },
@@ -35,11 +35,11 @@ app.get("/cards", async (req, res) => {
 });
 
 app.post("/cards", async (req, res) => {
-    const { titel, beschreibung } = req.body;
+    const { titel, beschreibung, img_url, synopsis, rank, score } = req.body;
     try {
-        const newCard = new Card({ titel, beschreibung });
+        const newCard = new Card({ titel, beschreibung, img_url, synopsis, rank, score });
         await newCard.save();
-        res.status(201).json(neueIdee);
+        res.status(201).json(newCard);
     } catch (err) {
         res.status(400).json({ message: "Fehler beim Speichern der Karte" });
     }
