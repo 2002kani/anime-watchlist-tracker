@@ -36,6 +36,15 @@ type CardStatus = {
 [mal_id: number]: boolean;
 }
 
+type savedCards = {
+  mal_id: number;
+  title: string;
+  img_url: string;
+  rank: number;
+  score: number;
+  synopsis: string;
+}
+
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function App() {
@@ -44,8 +53,8 @@ function App() {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const timeoutRef = useRef<number | null>(null);
-  const [savedCard, setSavedCard] = useState<CardStatus>({});
-  const [likedCard, setLikedCard] = useState<CardStatus>({});
+  const [savedCard, setSavedCard] = useState<savedCard[]>([]);
+  const [likedCard, setLikedCard] = useState<savedCards[]>([]);
 
   const { isLoading, error, data } = useSWR<JikanResponse>
         (debouncedQuery ? `https://api.jikan.moe/v4/anime?q=${debouncedQuery}&limit=12` : null, fetcher);
@@ -76,16 +85,11 @@ function App() {
     return words.slice(0, limit).join(" ") + "...";
   }
 
-  const handleLikeClick = (mal_id: number) => {
-    setLikedCard((prev) => ({
-      ...prev, [mal_id]: !prev[mal_id],
-    }));
+  const handleLikeClick = () => {
   }
 
-  const handleSaveClick = (mal_id: number) => {
-    setSavedCard((prev) => ({
-      ...prev, [mal_id]: !prev[mal_id],
-    }));
+  const handleSaveClick = () => {
+    
   }
   
 
@@ -131,7 +135,6 @@ function App() {
               </div>
               <div className="card-info">
                 <p className="card-title">{card.title}</p>
-                {/*<p>{card.episodes}</p>*/}
                 <div className="card-scores">
                   { card.score ? <p>Score: <span className="score-span">{card.score}</span></p> : <p>Score: <span className="score-span">--</span></p>}
                   {card.rank ? <p>Platzierung: <span className="rank-span">#{card.rank}</span></p> : <p>Platzierung: <span className="rank-span"> --</span></p>}
