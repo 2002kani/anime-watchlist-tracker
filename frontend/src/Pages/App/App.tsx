@@ -2,6 +2,7 @@ import "./App.css"
 import NavbarButtons from "../../Components/NavbarButtons/NavbarButtons"
 import useSWR from "swr"
 import { useState, useRef } from "react";
+import axios from "axios";
 
 interface AnimeResult {
   mal_id: number;
@@ -39,7 +40,7 @@ type CardStatus = {
 type savedCards = {
   mal_id: number;
   title: string;
-  img_url: string;
+  image_url: string;
   rank: number;
   score: number;
   synopsis: string;
@@ -85,13 +86,38 @@ function App() {
     return words.slice(0, limit).join(" ") + "...";
   }
 
-  const handleLikeClick = async () => {
-    await
-  }
+  const handleSaveClick = async (card: AnimeResult) => {
+    const { mal_id, title, images, rank, score, synopsis } = card;
+    const image_url = images.webp?.image_url || "";
 
-  const handleSaveClick = () => {
-    
+    try {
+      const response = await axios.post("/api/savedCards", {
+        userId: "temp-user-123",
+        mal_id, 
+        title,
+        image_url,
+        rank,
+        score,
+        synopsis,
+      });
+
+      setSavedCard((prev) => [...prev, { mal_id, title, image_url, rank, score, synopsis }]);
+    console.log('Karte gespeichert:', response.data);
+  } catch (error) {
+    console.error('Fehler beim Speichern der Karte:', error);
   }
+};
+
+  const handleUnsaveClick = async (mal_id: number) => {
+    try {
+      await axios.delete(`/api/savedCards/${mal_id}`);
+
+      setSavedCard((prev) => prev.filter((card) => card.mal_id !== mal_id));
+    console.log('Karte gelöscht');
+  } catch (error) {
+    console.error('Fehler beim Löschen der Karte:', error);
+  }
+};
   
 
   return ( 
@@ -125,11 +151,24 @@ function App() {
             <div className="anime-card" key={card.mal_id}>
               <div className="card-banner">
                 <div className="card-options">
-                  <button id="fav-button" onClick={() => handleLikeClick(card.mal_id)}>
+                  <button id="fav-button" onClick={() => 
+                  savedCard.some((card) => card.mal_id === card.mal_id) ?
+                    handleUnsaveClick(card.mal_id) : handleSaveClick(card)}>
+                    {savedCard.some((c) => c.mal_id === card.mal_id) ? (
+                      <i className='bx bxs-bookmark'></i>
+                    ) : (
+                      <i className='bx bx-bookmark'></i>
+                    )}
                     { likedCard[card.mal_id] ? (<i className='bx bxs-heart' ></i>) : (<i className='bx bx-heart' ></i>) }
                   </button>
-                  <button id="save-button" onClick={() => handleSaveClick(card.mal_id)}>
-                    { savedCard[card.mal_id] ? (<i className='bx bxs-bookmark'></i>) : (<i className='bx bx-bookmark'></i>) }
+                  <button id="save-button" onClick={() => 
+                    savedCard.some((card) => card.mal_id === card.mal_id) ?
+                    handleUnsaveClick(card.mal_id) : handleSaveClick(card)}>
+                    {savedCard.some((c) => c.mal_id === card.mal_id) ? (
+                      <i className='bx bxs-bookmark'></i>
+                    ) : (
+                      <i className='bx bx-bookmark'></i>
+                    )}
                   </button>
                 </div>
                 <img src={card.images?.webp?.image_url} alt={card.title} />
