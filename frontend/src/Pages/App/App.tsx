@@ -53,7 +53,7 @@ function App() {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const timeoutRef = useRef<number | null>(null);
-  const [savedCard, setSavedCard] = useState<savedCard[]>([]);
+  const [savedCard, setSavedCard] = useState<savedCards[]>([]);
   const [likedCard, setLikedCard] = useState<savedCards[]>([]);
 
   const { isLoading, error, data } = useSWR<JikanResponse>
@@ -85,7 +85,8 @@ function App() {
     return words.slice(0, limit).join(" ") + "...";
   }
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
+    await
   }
 
   const handleSaveClick = () => {
