@@ -50,12 +50,18 @@ app.post("/savedCards", async (req, res) => {
     }
 });
 
-app.delete("/cards/:id", async (req, res) => {
-    const { id } = req.params;
+app.delete("/savedCards/:mal_id", async (req, res) => {
+    const { mal_id } = req.params;
     try {
-        await Card.findByIdAndDelete(id);
-        res.status(204).send();
+        const result = await Card.findByIdAndDelete({ mal_id: Number(mal_id) });
+
+        if(!result){
+            return res.status(404).json({ message: "Karte nicht gefunden" });
+        }
+
+        res.status(200).send({ message: "Karte erfolgreich gelöscht" });
     } catch (err) {
+        console.error("Fehler beim Löschen: ", err);
         res.status(500).json({ message: "Fehler beim Löschen der Karte" });
     }
 });

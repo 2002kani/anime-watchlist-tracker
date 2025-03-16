@@ -109,10 +109,11 @@ function App() {
 
   const handleUnsaveClick = async (mal_id: number) => {
     try {
-      await axios.delete(`/api/savedCards/${mal_id}`);
+      const response = await axios.delete(`http://localhost:5002/savedCards/${mal_id}`);
+      console.log("Löschantwort: ", response.data);
 
       setSavedCard((prev) => prev.filter((card) => card.mal_id !== mal_id));
-    console.log('Karte gelöscht');
+      console.log('Karte gelöscht');
   } catch (error) {
     console.error('Fehler beim Löschen der Karte:', error);
   }
@@ -153,8 +154,13 @@ function App() {
                   <button id="fav-button" onClick={() => 
                   savedCard.some((savedCard) => savedCard.mal_id === card.mal_id) ?
                     handleUnsaveClick(card.mal_id) : handleSaveClick(card)}>
-                    { likedCard[card.mal_id] ? (<i className='bx bxs-heart' ></i>) : (<i className='bx bx-heart' ></i>) }
+                    { likedCard[card.mal_id] ? (
+                      <i className='bx bxs-heart' ></i>
+                    ) : (
+                      <i className='bx bx-heart' ></i>
+                    )}
                   </button>
+
                   <button id="save-button" onClick={() => 
                     savedCard.some((savedCard) => savedCard.mal_id === card.mal_id) ?
                     handleUnsaveClick(card.mal_id) : handleSaveClick(card)}>
@@ -165,8 +171,10 @@ function App() {
                     )}
                   </button>
                 </div>
+
                 <img src={card.images?.webp?.image_url} alt={card.title} />
               </div>
+
               <div className="card-info">
                 <p className="card-title">{card.title}</p>
                 <div className="card-scores">
@@ -174,6 +182,7 @@ function App() {
                   {card.rank ? <p>Platzierung: <span className="rank-span">#{card.rank}</span></p> : <p>Platzierung: <span className="rank-span"> --</span></p>}
                 </div>
               </div>
+
               <div className="card-description">
                 { card.synopsis ? <p>{ truncateDescription(card.synopsis, 22) }</p> : <p> Fehler beim Laden der Beschreibung! Es ist Keine Beschreibung vorhanden.</p>}
               </div>
