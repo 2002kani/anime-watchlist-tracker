@@ -33,10 +33,6 @@ interface JikanResponse {
   };
 }
 
-type CardStatus = {
-[mal_id: number]: boolean;
-}
-
 type savedCards = {
   mal_id: number;
   title: string;

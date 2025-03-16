@@ -53,7 +53,7 @@ app.post("/savedCards", async (req, res) => {
 app.delete("/savedCards/:mal_id", async (req, res) => {
     const { mal_id } = req.params;
     try {
-        const result = await Card.findByIdAndDelete({ mal_id: Number(mal_id) });
+        const result = await Card.findOneAndDelete({ mal_id: Number(mal_id) });
 
         if(!result){
             return res.status(404).json({ message: "Karte nicht gefunden" });
