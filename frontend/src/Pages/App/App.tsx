@@ -91,14 +91,13 @@ function App() {
     const image_url = images.webp?.image_url || "";
 
     try {
-      const response = await axios.post("/api/savedCards", {
-        userId: "temp-user-123",
-        mal_id, 
-        title,
-        image_url,
-        rank,
-        score,
-        synopsis,
+      const response = await axios.post("http://localhost:5002/savedCards", {
+        mal_id: mal_id,
+        title: title,
+        img_url: image_url,
+        rank: rank,
+        score: score,
+        synopsis: synopsis,
       });
 
       setSavedCard((prev) => [...prev, { mal_id, title, image_url, rank, score, synopsis }]);
@@ -152,17 +151,12 @@ function App() {
               <div className="card-banner">
                 <div className="card-options">
                   <button id="fav-button" onClick={() => 
-                  savedCard.some((card) => card.mal_id === card.mal_id) ?
+                  savedCard.some((savedCard) => savedCard.mal_id === card.mal_id) ?
                     handleUnsaveClick(card.mal_id) : handleSaveClick(card)}>
-                    {savedCard.some((c) => c.mal_id === card.mal_id) ? (
-                      <i className='bx bxs-bookmark'></i>
-                    ) : (
-                      <i className='bx bx-bookmark'></i>
-                    )}
                     { likedCard[card.mal_id] ? (<i className='bx bxs-heart' ></i>) : (<i className='bx bx-heart' ></i>) }
                   </button>
                   <button id="save-button" onClick={() => 
-                    savedCard.some((card) => card.mal_id === card.mal_id) ?
+                    savedCard.some((savedCard) => savedCard.mal_id === card.mal_id) ?
                     handleUnsaveClick(card.mal_id) : handleSaveClick(card)}>
                     {savedCard.some((c) => c.mal_id === card.mal_id) ? (
                       <i className='bx bxs-bookmark'></i>
