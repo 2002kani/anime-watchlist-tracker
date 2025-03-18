@@ -7,7 +7,7 @@ import { truncateDescription } from "../../utilities/truncate";
 
 const MeineListe = () => {
 
-    const { isLoading, data } = useSWR("http:localhost:5002/cards", fetcher);
+    const { isLoading, error, data } = useSWR("http://localhost:5002/cards", fetcher);
 
     return(
         <div className="meine-liste">
@@ -24,7 +24,7 @@ const MeineListe = () => {
             </div>
 
             <div className="sammlung-container">
-            { /*error && <h3> Fehler beim Laden der Seite! </h3>*/ }
+            { error && <h3> Fehler beim Laden der Seite! </h3> }
             { isLoading && <h3> Lade Ergebnisse... </h3>}
 
             {data ? (
