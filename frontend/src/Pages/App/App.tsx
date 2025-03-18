@@ -62,7 +62,7 @@ function App() {
   const fetchSavedCards = async () => {
     try {
         const response = await axios.get("http://localhost:5002/cards");
-        setSavedCard(response.data.map((card: { mal_id: any; title: any; img_url: any; rank: any; score: any; synopsis: any; }) => ({
+        setSavedCard(response.data.map((card: { mal_id: number; title: string; img_url: string; rank: number; score: number; synopsis: string; }) => ({
             mal_id: card.mal_id,
             title: card.title,
             image_url: card.img_url,

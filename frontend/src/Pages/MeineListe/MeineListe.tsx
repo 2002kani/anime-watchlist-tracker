@@ -1,17 +1,12 @@
 import "./MeineListee.css"
 import NavbarButtons from "../../Components/NavbarButtons/NavbarButtons";
 import FilterButtons from "../../Components/FilterButtons/FilterButtons";
-import { useEffect } from "react";
 import { fetcher } from "../../utilities/fetcher";
 import useSWR from "swr";
 
 const MeineListe = () => {
 
-    const { isLoading, error, data } = useSWR("http:localhost:5002/cards");
-
-    useEffect(() => {
-
-    }, []);
+    const { isLoading, data } = useSWR("http:localhost:5002/cards", fetcher);
 
     return(
         <div className="meine-liste">
@@ -28,7 +23,30 @@ const MeineListe = () => {
             </div>
 
             <div className="sammlung-container">
-                { !data && }
+            { /*error && <h3> Fehler beim Laden der Seite! </h3>*/ }
+            { isLoading && <h3> Lade Ergebnisse... </h3>}
+
+            {data ? (
+                data.map((card: ({ mal_id: number; title: string; img_url: string; rank: number; score: number; synopsis: string; })) => (
+                    <div className="sammlung-card" key={card.mal_id}>
+                        <div className="left-side">
+                            <img src={card.img_url} alt={card.title} className="sammlung-img" />
+                            <h3>{card.title}</h3>
+                        </div>
+                        <div className="right-side">
+                            <div className="details-top">
+                                <p>{card.synopsis}</p>
+                            </div>
+                            <div className="details-bottom">
+                                <p> Platzierung: <span>{card.rank}</span></p>
+                                <p> Score: <span>{card.score}</span> </p>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <h3> Du hast bisher noch keine Anime in deiner Sammlung.. </h3>
+            )}
             </div>
         </div>
     );
