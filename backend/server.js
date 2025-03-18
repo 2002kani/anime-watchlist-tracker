@@ -13,7 +13,7 @@ app.use(cors());
 
 // Mit MongoDB Atlas verbinden
 const mongoURI = process.env.MONGO_URI;
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
     .then(() => console.log("MongoDB verbunden"))
     .catch((err) => console.error("MongoDB Verbindungsfehler:", err));
 
