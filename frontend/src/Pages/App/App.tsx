@@ -3,6 +3,7 @@ import NavbarButtons from "../../Components/NavbarButtons/NavbarButtons"
 import useSWR from "swr"
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { fetcher } from "../../utilities/fetcher";
 
 interface AnimeResult {
   mal_id: number;
@@ -41,8 +42,6 @@ type savedCards = {
   score: number;
   synopsis: string;
 }
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function App() {
 
