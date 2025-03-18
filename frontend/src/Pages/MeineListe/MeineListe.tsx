@@ -3,6 +3,7 @@ import NavbarButtons from "../../Components/NavbarButtons/NavbarButtons";
 import FilterButtons from "../../Components/FilterButtons/FilterButtons";
 import { fetcher } from "../../utilities/fetcher";
 import useSWR from "swr";
+import { truncateDescription } from "../../utilities/truncate";
 
 const MeineListe = () => {
 
@@ -35,7 +36,7 @@ const MeineListe = () => {
                         </div>
                         <div className="right-side">
                             <div className="details-top">
-                                <p>{card.synopsis}</p>
+                                { card.synopsis ? <p>{truncateDescription(card.synopsis, 20)}</p> : <p> Fehler beim Laden der Beschreibung! Es ist Keine Beschreibung vorhanden.</p> }
                             </div>
                             <div className="details-bottom">
                                 <p> Platzierung: <span>{card.rank}</span></p>

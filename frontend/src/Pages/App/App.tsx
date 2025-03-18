@@ -4,6 +4,7 @@ import useSWR from "swr"
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { fetcher } from "../../utilities/fetcher";
+import { truncateDescription } from "../../utilities/truncate";
 
 interface AnimeResult {
   mal_id: number;
@@ -89,17 +90,6 @@ function App() {
       setIsTyping(false);
     }, 500);
   };
-
-  const truncateDescription = (text: string | null | undefined, limit: number) => {
-    const safeText = text ?? "";
-    const words = safeText.split(" ");
-
-    if(words.length <= limit){
-      return safeText;
-    }
-
-    return words.slice(0, limit).join(" ") + "...";
-  }
 
   const handleSaveClick = async (card: AnimeResult) => {
     const { mal_id, title, images, rank, score, synopsis } = card;
