@@ -1,7 +1,7 @@
 import "./App.css"
 import NavbarButtons from "../../Components/NavbarButtons/NavbarButtons"
 import useSWR from "swr"
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 interface AnimeResult {
@@ -55,6 +55,26 @@ function App() {
 
   const { isLoading, error, data } = useSWR<JikanResponse>
         (debouncedQuery ? `https://api.jikan.moe/v4/anime?q=${debouncedQuery}&limit=12` : null, fetcher);
+
+  useEffect(() => {
+    fetchSavedCards();
+  }, []);
+
+  const fetchSavedCards = async () => {
+    try {
+        const response = await axios.get("http://localhost:5002/cards");
+        setSavedCard(response.data.map((card: { mal_id: any; title: any; img_url: any; rank: any; score: any; synopsis: any; }) => ({
+            mal_id: card.mal_id,
+            title: card.title,
+            image_url: card.img_url,
+            rank: card.rank,
+            score: card.score,
+            synopsis: card.synopsis
+        })));
+    } catch(error) {
+        console.log("Fehler beim Laden der gespeicherten Karten: ", error);
+    }
+}
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
@@ -114,7 +134,7 @@ function App() {
     console.error('Fehler beim Löschen der Karte:', error);
   }
 };
-  
+
 
   return ( 
     <div className="app">

@@ -66,6 +66,7 @@ app.delete("/savedCards/:mal_id", async (req, res) => {
     }
 });
 
+
 // Server starten
 const PORT = 5002;
 app.listen(PORT, () => console.log(`Server läuft auf Port ${PORT}`));
