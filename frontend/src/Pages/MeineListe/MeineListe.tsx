@@ -1,8 +1,8 @@
 import "./MeineListee.css"
 import NavbarButtons from "../../Components/NavbarButtons/NavbarButtons";
 import FilterButtons from "../../Components/FilterButtons/FilterButtons";
-import { fetcher } from "../../utilities/fetcher";
 import useSWR from "swr";
+import { fetcher } from "../../utilities/fetcher";
 import { truncateDescription } from "../../utilities/truncate";
 
 const MeineListe = () => {
@@ -31,6 +31,9 @@ const MeineListe = () => {
                 data.map((card: ({ mal_id: number; title: string; img_url: string; rank: number; score: number; synopsis: string; })) => (
                     <div className="sammlung-card" key={card.mal_id}>
                         <div className="left-side">
+                            <div className="card-updaten">
+                                {/* TODO: hier jeweils favorisieren und delete button hinzufügen */}
+                            </div>
                             <img src={card.img_url} alt={card.title} className="sammlung-img" />
                             <h3>{card.title}</h3>
                         </div>
