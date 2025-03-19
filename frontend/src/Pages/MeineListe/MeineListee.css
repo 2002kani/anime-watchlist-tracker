@@ -270,7 +270,8 @@
     
     .far-right-side {
       width: auto;
-      margin-left: 0px;
+      margin-left: auto;
+      margin-right: 7px;
       height: 100%;
       display: flex;
       align-items: center;

@@ -23,10 +23,18 @@
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
+
+  .filter-left button.active {
+    background-color: #6aa8e5;
+    color: #fff;
+  }
+
+  .filter-left button.active:hover{
+    background-color: #6aa8e5;
+  }
   
   .filter-left button:hover {
     background-color: #3d3d3d;
-    transform: translateY(-2px);
   }
   
   .filter-left button:active {
