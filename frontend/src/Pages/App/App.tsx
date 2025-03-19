@@ -156,16 +156,6 @@ function App() {
             <div className="anime-card" key={card.mal_id}>
               <div className="card-banner">
                 <div className="card-options">
-                  <button id="fav-button" onClick={() => 
-                  savedCard.some((savedCard) => savedCard.mal_id === card.mal_id) ?
-                    handleUnsaveClick(card.mal_id) : handleSaveClick(card)}>
-                    { likedCard[card.mal_id] ? (
-                      <i className='bx bxs-heart' ></i>
-                    ) : (
-                      <i className='bx bx-heart' ></i>
-                    )}
-                  </button>
-
                   <button id="save-button" onClick={() => 
                     savedCard.some((savedCard) => savedCard.mal_id === card.mal_id) ?
                     handleUnsaveClick(card.mal_id) : handleSaveClick(card)}>
