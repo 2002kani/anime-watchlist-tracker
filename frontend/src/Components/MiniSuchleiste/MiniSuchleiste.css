@@ -1,10 +1,11 @@
 .mini-suchleiste {
     position: relative;
     width: 200px;
+    margin-right: 95px;
   }
   
   .mini-suchleiste input {
-    width: 93%;
+    width: 133%;
     padding: 8px 10px;
     font-size: 14px;
     background-color: #2d2d2d;
