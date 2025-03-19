@@ -12,7 +12,7 @@ const MeineListe = () => {
     return(
         <>
             <div className="navbar-buttons-container">
-                    <NavbarButtons />
+                <NavbarButtons />
             </div>
             
             <div className="meine-liste">
@@ -31,8 +31,8 @@ const MeineListe = () => {
                 <ul>
                     {data ? (
                         data.map((card: ({ mal_id: number; title: string; img_url: string; rank: number; score: number; synopsis: string; })) => (
-                        <li>
-                            <div className="sammlung-card" key={card.mal_id}>
+                        <li key={card.mal_id}>
+                            <div className="sammlung-card">
                                 <div className="left-side">
                                     <div className="card-updaten">
                                         <button id="sammlung-fav-button">

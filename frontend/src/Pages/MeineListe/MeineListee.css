@@ -31,7 +31,7 @@
     border-radius: 16px;
     padding: 25px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    max-height: 67vh;
+    max-height: 77vh;
     overflow-y: auto;
   }
   
@@ -241,26 +241,40 @@
     }
     
     .sammlung-card {
-      flex-direction: column;
+      align-items: center;
     }
     
     .left-side {
-      width: 100%;
-      padding-bottom: 0;
+      width: 140px;
+      padding: 10px;
     }
     
-    .card-updaten {
-      flex-direction: row;
+    .sammlung-img {
+      width: 60px;
+      height: 60px;
+    }
+    
+    .left-side h3 {
+      font-size: 13px;
+    }
+    
+    .details-top {
+      display: none;
     }
     
     .right-side {
-      border-left: none;
-      border-top: 1px solid #3d3d3d;
+      flex: 0;
+      width: auto;
+      padding: 10px;
     }
     
     .far-right-side {
-      width: 100%;
-      border-left: none;
-      border-top: 1px solid #3d3d3d;
+      width: auto;
+      margin-left: 0px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
     }
   }

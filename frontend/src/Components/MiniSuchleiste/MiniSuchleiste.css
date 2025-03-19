@@ -1,0 +1,27 @@
+.mini-suchleiste {
+    position: relative;
+    width: 200px;
+  }
+  
+  .mini-suchleiste input {
+    width: 93%;
+    padding: 8px 10px;
+    font-size: 14px;
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 2px solid #3d3d3d;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .mini-suchleiste input:focus {
+    outline: none;
+    border-color: #6aa8e5;
+    box-shadow: 0 0 0 2px rgba(97, 218, 251, 0.2);
+    background-color: #323232;
+  }
+  
+  .mini-suchleiste input::placeholder {
+    color: #888888;
+  }
