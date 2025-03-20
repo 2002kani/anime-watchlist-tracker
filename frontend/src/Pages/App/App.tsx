@@ -1,48 +1,12 @@
 import "./App.css"
 import NavbarButtons from "../../Components/NavbarButtons/NavbarButtons"
 import useSWR from "swr"
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import { fetcher } from "../../utilities/fetcher";
 import { truncateDescription } from "../../utilities/truncate";
-
-interface AnimeResult {
-  mal_id: number;
-  title: string;
-  images: {
-    jpg?: {
-      image_url?: string;
-      small_image_url?: string;
-      large_image_url?: string;
-    };
-    webp?: {
-      image_url?: string;
-      small_image_url?: string;
-      large_image_url?: string;
-    };
-  };
-  episodes: number;
-  rank: number;
-  score: number;
-  synopsis: string;
-}
-
-interface JikanResponse {
-  data: AnimeResult[];
-  pagination: {
-    has_next_page: boolean;
-    last_visible_page: number;
-  };
-}
-
-type savedCards = {
-  mal_id: number;
-  title: string;
-  image_url: string;
-  rank: number;
-  score: number;
-  synopsis: string;
-}
+import { AnimeResult, JikanResponse } from "../../types";
+import { savedCardContext } from "../../hooks/Context";
 
 function App() {
 
@@ -50,8 +14,8 @@ function App() {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const timeoutRef = useRef<number | null>(null);
-  const [savedCard, setSavedCard] = useState<savedCards[]>([]);
-  const [likedCard, setLikedCard] = useState<savedCards[]>([]);
+
+  const { savedCard, setSavedCard } = useContext(savedCardContext);
 
   const { isLoading, error, data } = useSWR<JikanResponse>
         (debouncedQuery ? `https://api.jikan.moe/v4/anime?q=${debouncedQuery}&limit=12` : null, fetcher);
