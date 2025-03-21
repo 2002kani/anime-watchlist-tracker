@@ -24,7 +24,7 @@ const MeineListe = () => {
                         <FilterButtons />
                     </div>
                 </div>
-
+ 
                 <div className="sammlung-container">
                     { error && <h3> Fehler beim Laden der Seite! </h3> }
                     { isLoading && <h3> Lade Ergebnisse... </h3> }
