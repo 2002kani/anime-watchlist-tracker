@@ -28,7 +28,7 @@ const MeineListe = () => {
                 <div className="sammlung-container">
                     { error && <h3> Fehler beim Laden der Seite! </h3> }
                     { isLoading && <h3> Lade Ergebnisse... </h3> }
-                <ul>
+                <ul> 
                     {data ? (
                         data.map((card: ({ mal_id: number; title: string; img_url: string; rank: number; score: number; synopsis: string; })) => (
                         <li key={card.mal_id}>
