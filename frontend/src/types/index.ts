@@ -41,3 +41,7 @@ export interface SavedCardContextType {
   savedCard: savedCards[];
   setSavedCard: React.Dispatch<React.SetStateAction<savedCards[]>>;
 }
+
+export type FilterButtonProps = {
+  onFilterChange: (filter: string) => void;
+}

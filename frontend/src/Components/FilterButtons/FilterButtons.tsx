@@ -1,13 +1,15 @@
 import "./FilterButtons.css"
 import MiniSuchleiste from "../MiniSuchleiste/MiniSuchleiste";
 import { useState } from "react";
+import { FilterButtonProps } from "../../types";
 
-const FilterButtons = () => {
+const FilterButtons: React.FC<FilterButtonProps> = ({ onFilterChange }) => {
 
     const [activeFilter, setActiveFilter] = useState("neuste");
 
     const activeFilterUpdate = (filter: string) => {
-        setActiveFilter(filter)
+        setActiveFilter(filter);
+        onFilterChange(filter);
     }
 
     return(

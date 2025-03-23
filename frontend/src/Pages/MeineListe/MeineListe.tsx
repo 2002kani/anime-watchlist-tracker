@@ -5,12 +5,14 @@ import useSWR from "swr";
 import { fetcher } from "../../utilities/fetcher";
 import { truncateDescription } from "../../utilities/truncate";
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { savedCardContext } from "../../hooks/Context";
 
 const MeineListe = () => {
 
     const { savedCard, setSavedCard } = useContext(savedCardContext);
+    const [filteredCards, setFilteredCards] = useState(savedCard);
+    const [activeFilter, setActiveFilter] = useState("neuste");
 
     const { isLoading, error, data } = useSWR("http://localhost:5002/cards", fetcher);
 
