@@ -19,11 +19,11 @@ const MeineListe = () => {
             const response = await axios.delete(`http://localhost:5002/savedCards/${mal_id}`);
             setSavedCard((prev) => prev.filter((card) => card.mal_id !== mal_id));
             window.location.reload();
-            console.log(savedCard);
         }catch(error){
             console.error('Fehler beim Löschen der Karte:', error);
         }
     }
+
 
     return(
         <>
