@@ -4,10 +4,26 @@ import FilterButtons from "../../Components/FilterButtons/FilterButtons";
 import useSWR from "swr";
 import { fetcher } from "../../utilities/fetcher";
 import { truncateDescription } from "../../utilities/truncate";
+import axios from "axios";
+import { useContext, useEffect } from "react";
+import { savedCardContext } from "../../hooks/Context";
 
 const MeineListe = () => {
 
+    const { savedCard, setSavedCard } = useContext(savedCardContext);
+
     const { isLoading, error, data } = useSWR("http://localhost:5002/cards", fetcher);
+
+    const handleUnsaveCard = async (mal_id: number) => {
+        try{
+            const response = await axios.delete(`http://localhost:5002/savedCards/${mal_id}`);
+            setSavedCard((prev) => prev.filter((card) => card.mal_id !== mal_id));
+            window.location.reload();
+            console.log(savedCard);
+        }catch(error){
+            console.error('Fehler beim Löschen der Karte:', error);
+        }
+    }
 
     return(
         <>
@@ -38,7 +54,7 @@ const MeineListe = () => {
                                         <button id="sammlung-fav-button">
                                             <i className='bx bx-heart'/>
                                         </button>
-                                        <button id="sammlung-save-button">
+                                        <button id="sammlung-save-button" onClick={() => handleUnsaveCard(card.mal_id)}>
                                             <i className='bx bxs-bookmark'/>
                                         </button>
                                     </div>

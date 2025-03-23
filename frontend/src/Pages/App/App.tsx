@@ -76,16 +76,16 @@ function App() {
   }
 };
 
-  const handleUnsaveClick = async (mal_id: number) => {
-    try {
-      const response = await axios.delete(`http://localhost:5002/savedCards/${mal_id}`);
-      console.log("Löschantwort: ", response.data);
+const handleUnsaveClick = async (mal_id: number) => {
+  try {
+    const response = await axios.delete(`http://localhost:5002/savedCards/${mal_id}`);
+    console.log("Löschantwort: ", response.data);
 
-      setSavedCard((prev) => prev.filter((card) => card.mal_id !== mal_id));
-      console.log('Karte gelöscht');
-  } catch (error) {
-    console.error('Fehler beim Löschen der Karte:', error);
-  }
+    setSavedCard((prev) => prev.filter((card) => card.mal_id !== mal_id));
+    console.log('Karte gelöscht');
+} catch (error) {
+  console.error('Fehler beim Löschen der Karte:', error);
+}
 };
 
 
